@@ -1,0 +1,19 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="Request">
+      <file>Request/BasicRequestTest.php</file>
+    </testsuite>
+    <testsuite name="Get">
+      <file>Get/BasicGetTest.php</file>
+    </testsuite>
+    <testsuite name="Post">
+      <file>Post/BasicPostTest.php</file>
+    </testsuite>
+    <testsuite name="Put">
+      <file>Post/BasicPutTest.php</file>
+    </testsuite>
+     <testsuite name="Delete">
+      <file>Post/BasicDeleteTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
