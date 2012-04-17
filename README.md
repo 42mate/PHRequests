@@ -13,8 +13,26 @@ PHRequests
   https://github.com/kennethreitz/requests/
 
 ## Usage
+If you need to make a Request to get the content of some Url using Curl a clasic
+code will look like this.
 
-The usage is very easy
+``` php
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+  curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+  curl_setopt($ch, CURLOPT_URL, 'http://www.google.com');
+
+  $result = curl_exec($ch);
+
+  if (curl_errno($ch) > 0) {
+    //Handle Error
+  }
+
+  curl_close($ch);
+```
+
+PHRequests wraps all this awful code to make our lives easier.
 
 In order to make a GET Request you should do this
 
@@ -22,7 +40,7 @@ In order to make a GET Request you should do this
 $response = \PHRequests\PHRequests::get('http://www.google.com');
 ```
 
-Yes, only that.
+Yes, only that. Looks nice, take a look to a POST Request.
 
 To make a POST you can do this
 
@@ -34,7 +52,6 @@ $opt = array (
 
 $response = \PHRequests\PHRequests::post('http://www.httpbin.org/post', $opt);
 ```
-
 and that's all folks!
 
 The Response object will hold the result of the request. Also it has a lot
