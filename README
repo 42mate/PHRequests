@@ -8,6 +8,7 @@ Requests
 - Is builded over Curl
 - Simplifies our lives making CURL usable by humans
 - It's inspired in Requests API for Python, this pretends to be a port for PHP
+  https://github.com/kennethreitz/requests/
 
 ## Usage
 
