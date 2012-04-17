@@ -13,7 +13,7 @@ class UploadPostTest extends PHPUnit_Framework_TestCase {
             'file2' => "@$path/file/fake2.txt",
         ),
     );    
-    $response = \Requests\Requests::post(BASE_GET_URL . 'post', $options);
+    $response = \PHRequests\PHRequests::post(BASE_GET_URL . 'post', $options);
     $this->assertEquals($response->http_code, 200);
     $jres = json_decode($response->content);    
     $this->assertTrue(isset($jres->files));

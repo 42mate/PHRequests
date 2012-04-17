@@ -1,6 +1,6 @@
 <?php
 
-namespace Requests\Models;
+namespace PHRequests\Models;
 
 /**
  * Response holds the data of the Reponse
@@ -52,7 +52,7 @@ class Response {
   }
 
   /**
-   * Returns the Content of the Requests
+   * Returns the Content of the PHRequests
    * @return String
    */
   public function __toString() {

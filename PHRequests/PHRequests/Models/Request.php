@@ -1,11 +1,11 @@
 <?php
 
-namespace Requests\Models;
+namespace PHRequests\Models;
 
-use Requests\Exceptions\RequestException;
-use Requests\Exceptions\RequestTimeoutException;
-use Requests\Exceptions\RequestResolveHostException;
-use Requests\Models\Methods;
+use PHRequests\Exceptions\PHRequestsException;
+use PHRequests\Exceptions\PHRequestsTimeoutException;
+use PHRequests\Exceptions\PHRequestsResolveHostException;
+use PHRequests\Models\Methods;
 
 /**
  * Request handles the parameters and makes the efective request
@@ -39,7 +39,7 @@ class Request {
    *   allow_redirects: True or false Default True
    *   max_redirects: Numeric, default 3
    *   proxy: Array (url, auth). Default None
-   * @throws RequestException 
+   * @throws PHRequestsException 
    */
   public function __construct($method, $url, $options = array()) {
     $method = strtoupper($method);
@@ -47,7 +47,7 @@ class Request {
     $this->method = $method;
     
     if (!in_array($method, Methods::getMethods())) {
-      throw new RequestException('Method Not Allowed');
+      throw new PHRequestsException('Method Not Allowed');
     }
     
     if (isset($options['params']) && is_array($options['params'])) {
@@ -89,8 +89,8 @@ class Request {
   /**
    * Execute the request
    * 
-   * @return \Requests\Models\Response
-   * @throws RequestException 
+   * @return \PHRequests\Models\Response
+   * @throws PHRequestsException 
    */
   public function send() {
     $ch = curl_init();    
@@ -184,17 +184,17 @@ class Request {
    * 
    * @param integer $errorNro 
    * @param string $message
-   * @return \Requests\Exceptions\RequestException or child
+   * @return \PHRequests\Exceptions\PHRequestsException or child
    */
   protected function createException($errorNro, $message) {    
     if ($errorNro === 6) {
-      return new RequestResolveHostException($message);
+      return new PHRequestsResolveHostException($message);
     }
     
     if ($errorNro === 28) {
-      return new RequestTimeoutException($message);
+      return new PHRequestsTimeoutException($message);
     }
     
-    return new RequestException($message);
+    return new PHRequestsException($message);
   }
 }

@@ -1,20 +1,20 @@
 <?php
 
-namespace Requests;
+namespace PHRequests;
 
-use Requests\Models\Methods;
-use Requests\Models\Request;
+use PHRequests\Models\Methods;
+use PHRequests\Models\Request;
 
-class Requests {
+class PHRequests {
 
   /**
-   * Makes a Requests
+   * Makes a PHRequests
    * 
    * @param String $method : Some allowed HTTP Method (GET, PUT, POST, etc).
    * @param String $url : The Url to make the request
-   * @param Array $options : Options for the Requests
+   * @param Array $options : Options for the PHRequests
    * 
-   * @return Requests\Model\Response
+   * @return PHRequests\Model\Response
    */
   static public function request($method, $url, $options = array()) {
     $r = new Request($method, $url, $options);

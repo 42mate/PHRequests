@@ -5,10 +5,10 @@ include_once 'bootstrap.php';
 class BasicGetTest extends PHPUnit_Framework_TestCase {
 
   public function testBasicGet() {
-    $response = \Requests\Requests::get(BASE_GET_URL . 'get');
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'get');
     $this->assertEquals($response->http_code, 200);
     
-    $response = \Requests\Requests::get(BASE_GET_URL . 'noneError');   
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'noneError');   
     $this->assertEquals($response->http_code, 404);
   }
 
@@ -19,7 +19,7 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
             'var2' => 'Hello',
         )
     );
-    $response = \Requests\Requests::get(BASE_GET_URL . 'get', $options);
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'get', $options);
     $this->assertEquals($response->http_code, 200);
     $jres = json_decode($response);
     $this->assertEquals(isset($jres->args), TRUE);
@@ -31,48 +31,48 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @expectedException Requests\Exceptions\RequestTimeoutException
+   * @expectedException PHRequests\Exceptions\PHRequestsTimeoutException
    */
   public function testTimeoutGet() {
     $options = array(
         'timeout' => 5,
     );
-    \Requests\Requests::get(BASE_GET_URL . 'delay/100000000', $options);    
+    \PHRequests\PHRequests::get(BASE_GET_URL . 'delay/100000000', $options);    
   }
   
   /**
-   * @expectedException Requests\Exceptions\RequestResolveHostException 
+   * @expectedException PHRequests\Exceptions\PHRequestsResolveHostException 
    */
   public function testUnresolvedHost() {    
-    \Requests\Requests::get('foo');       
+    \PHRequests\PHRequests::get('foo');       
   }
   
   public function testRedirectGet() {
     $options = array (
         'allow_redirects' => FALSE,
     );
-    $response = \Requests\Requests::get(BASE_GET_URL . 'redirect/4', $options);
-    $this->assertEquals($response->http_code, 302);
     
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
+    $this->assertEquals($response->http_code, 302);    
     $options = array (
         'allow_redirects' => TRUE,
         'max_redirects' => 2
     );
     try {
-      $response = \Requests\Requests::get(BASE_GET_URL . 'redirect/4', $options);
-    } catch (\Requests\Exceptions\RequestException $e) {
-      $this->assertInstanceOf('\Requests\Exceptions\RequestException', $e);
+      $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
+    } catch (\PHRequests\Exceptions\PHRequestsException $e) {
+      $this->assertInstanceOf('\PHRequests\Exceptions\PHRequestsException', $e);
     }
     
     $options = array (
         'allow_redirects' => TRUE,
         'max_redirects' => 5
     );    
-    $response = \Requests\Requests::get(BASE_GET_URL . 'redirect/4', $options);
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
     $this->assertEquals($response->http_code, 200);
        
     //Default behavior
-    $response = \Requests\Requests::get(BASE_GET_URL . 'redirect/2');
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/2');
     $this->assertEquals($response->http_code, 200);
   }
 

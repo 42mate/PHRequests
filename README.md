@@ -1,9 +1,11 @@
-Requests
+PHRequests
 ========
 
- Requests is an API to make HTTP requests using Curl.
+ PHRequests is an API to make HTTP requests using Curl.
 
-## Why use Requests ?
+ Is pronunced Free-Quests (original Idea by @mgi1982)
+
+## Why use PHRequests ?
 
 - Its built on Curl.
 - Simplifies your live by making CURL actually usable.
@@ -17,7 +19,7 @@ The usage is very easy
 In order to make a GET Request you should do this
 
 ``` php
-$response = \Requests\Requests::get('http://www.google.com');
+$response = \PHRequests\PHRequests::get('http://www.google.com');
 ```
 
 Yes, only that.
@@ -30,7 +32,7 @@ $opt = array (
   'param2' => 'Some other value',
 );
 
-$response = \Requests\Requests::get('http://www.httpbin.org/post', $opt);
+$response = \PHRequests\PHRequests::get('http://www.httpbin.org/post', $opt);
 ```
 
 and that's all folks!

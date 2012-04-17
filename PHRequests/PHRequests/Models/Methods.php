@@ -1,6 +1,6 @@
 <?php
 
-namespace Requests\Models;
+namespace PHRequests\Models;
 
 /**
  * Provides a Definition for all Allowed Methods
@@ -21,7 +21,7 @@ class Methods {
    * @return Array
    */
   static public function getMethods() {
-    $r = new \ReflectionClass('\Requests\Models\Methods');
+    $r = new \ReflectionClass('\PHRequests\Models\Methods');
     return $r->getConstants();
   }
   

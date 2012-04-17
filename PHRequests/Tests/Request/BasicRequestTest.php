@@ -5,10 +5,10 @@ include_once 'bootstrap.php';
 class BasicRequestTest extends PHPUnit_Framework_TestCase {
   
   /**
-   * @expectedException Requests\Exceptions\RequestException 
+   * @expectedException PHRequests\Exceptions\PHRequestsException 
    */
   public function testInvalidMethod() {
-    \Requests\Requests::request('INVALID_METHOD', BASE_GET_URL . 'get');
+    \PHRequests\PHRequests::request('INVALID_METHOD', BASE_GET_URL . 'get');
   }
 
 }

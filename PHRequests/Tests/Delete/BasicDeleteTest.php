@@ -11,10 +11,10 @@ class BasicDeleteTest extends PHPUnit_Framework_TestCase {
         ),
     );
     
-    $response = \Requests\Requests::delete(BASE_GET_URL . 'delete', $options);
+    $response = \PHRequests\PHRequests::delete(BASE_GET_URL . 'delete', $options);
     $this->assertEquals($response->http_code, 200);
     
-    $response = \Requests\Requests::delete(BASE_GET_URL . 'noneError');   
+    $response = \PHRequests\PHRequests::delete(BASE_GET_URL . 'noneError');   
     $this->assertEquals($response->http_code, 404);
   }
 
@@ -31,7 +31,7 @@ class BasicDeleteTest extends PHPUnit_Framework_TestCase {
         )
     );
     
-    $response = \Requests\Requests::delete(BASE_GET_URL . 'delete', $options);
+    $response = \PHRequests\PHRequests::delete(BASE_GET_URL . 'delete', $options);
     $this->assertEquals($response->http_code, 200); 
     $jres = json_decode($response->content);
     $this->assertEquals(isset($jres->args), TRUE);    
