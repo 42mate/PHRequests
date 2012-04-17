@@ -38,9 +38,9 @@ and that's all
 The Response object will hold the result of the request. Also it has a lot
 of important data of the request.
 
-$response->content : The Content of the Request
-$response->headers : The Response Headers
-$response->status_code : The Response Code
+ - $response->content : The Content of the Request
+ - $response->headers : The Response Headers
+ - $response->status_code : The Response Code
 
 And more.
 
