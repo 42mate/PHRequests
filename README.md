@@ -14,8 +14,42 @@ Requests
 
 The usage is very easy
 
+In order to make a GET Request you should do this
+
 ``` php
-
 $response = \Requests\Requests::get('http://www.google.com');
-
 ```
+
+Yes, only that.
+
+To make a POST you can do this
+
+``` php
+$opt = array (
+  'param1' => 'Some Value',
+  'param2' => 'Some other value',
+);
+
+$response = \Requests\Requests::get('http://www.httpbin.org/post', $opt);
+```
+
+and that's all
+
+The Response object will hold the result of the request. Also it has a lot
+of important data of the request.
+
+$response->content : The Content of the Request
+$response->headers : The Response Headers
+$response->status_code : The Response Code
+
+And more.
+
+## Supported methods.
+
+ - GET
+ - POST
+ - PUT
+ - DELETE
+ - HEAD
+ - OPTIONS
+
