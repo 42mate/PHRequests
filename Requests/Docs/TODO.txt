@@ -1,10 +1,8 @@
 
 Test all methods
 
- - Test POST with Paramters 
+ - Session Support
  - Add support to upload Files
- - Test other methods
- - Write Unit Tests
  - Add Support for Proxys
  - Add Support for HTTPS
  - Add Support for Cookies per User Session or Shared

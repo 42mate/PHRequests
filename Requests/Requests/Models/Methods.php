@@ -15,7 +15,6 @@ class Methods {
   const HEAD = 'HEAD';
   const DELETE = 'DELETE';
   const OPTIONS = 'OPTIONS';
-  const PATCH = 'PATCH';
   
   /**
    * Returns an Array with al Defined Methods
