@@ -48,5 +48,4 @@ class Requests {
   static public function patch($url, $options = array()) {
     return self::request(Methods::OPTIONS, $url, $options);
   }
-  
 }

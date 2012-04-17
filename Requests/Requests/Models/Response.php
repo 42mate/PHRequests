@@ -22,6 +22,10 @@ class Response {
     $this->raw_header = trim(substr($content, 0, $info['header_size']));
     $this->headers = $this->parseHttpHeader($this->raw_header);
     $this->content = substr($content, -$info['download_content_length']); 
+    $this->allow = array();
+    if (isset($this->headers['Allow'])) {
+      $this->allow = explode(', ', $this->headers['Allow']);
+    }
   }
   
   /**

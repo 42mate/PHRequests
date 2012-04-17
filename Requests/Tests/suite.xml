@@ -12,8 +12,14 @@
     <testsuite name="Put">
       <file>Post/BasicPutTest.php</file>
     </testsuite>
-     <testsuite name="Delete">
+    <testsuite name="Delete">
       <file>Post/BasicDeleteTest.php</file>
+    </testsuite>
+    <testsuite name="Head">
+      <file>Post/BasicHeadTest.php</file>
+    </testsuite>
+    <testsuite name="Options">
+      <file>Post/BasicOptionsTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

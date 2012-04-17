@@ -132,6 +132,9 @@ class Request {
         $options[CURLOPT_POST] = TRUE;        
         $this->setOptionData($options);
         break;
+      case Methods::HEAD:
+        $options[CURLOPT_NOBODY] = TRUE;
+        break;
       default:
         $options[CURLOPT_CUSTOMREQUEST] = $this->method;
         $this->setOptionData($options);
