@@ -3,7 +3,7 @@ PHRequests
 
  PHRequests is an API to make HTTP requests using Curl.
 
- Is pronunced Free-Quests (original Idea by @mgi1982)
+ Is pronounced  Free-Quests (original Idea by @mgi1982)
 
 ## Why use PHRequests ?
 
