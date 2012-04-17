@@ -5,9 +5,9 @@ Requests
 
 ## Why use Requests ?
 
-- Is builded over Curl
-- Simplifies our lives making CURL usable by humans
-- It's inspired in Requests API for Python, this pretends to be a port for PHP
+- Its built on Curl.
+- Simplifies your live by making CURL actually usable.
+- Inspired by the Requests API for Python, this pretends to be a port for PHP
   https://github.com/kennethreitz/requests/
 
 ## Usage
@@ -33,7 +33,7 @@ $opt = array (
 $response = \Requests\Requests::get('http://www.httpbin.org/post', $opt);
 ```
 
-and that's all
+and that's all folks!
 
 The Response object will hold the result of the request. Also it has a lot
 of important data of the request.
@@ -44,7 +44,7 @@ of important data of the request.
 
 And more.
 
-To see more samples, check your tests (until I write more documentation).
+To see more samples, check the tests (until I write more documentation).
 
 ## Supported methods.
 
@@ -64,6 +64,6 @@ To see more samples, check your tests (until I write more documentation).
 
 ## Support
 
-If you want a special feature or if you detect some bug, please, let me know.
+If you want a special feature or if you find a bug, please, let me know.
 
-If you wanna contribute to the project, also, please let me know :).
+If you want to contribute to the project, also, please let me know :).
