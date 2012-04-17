@@ -8,6 +8,7 @@
     </testsuite>
     <testsuite name="Post">
       <file>Post/BasicPostTest.php</file>
+      <file>Post/UploadPostTest.php</file>
     </testsuite>
     <testsuite name="Put">
       <file>Post/BasicPutTest.php</file>

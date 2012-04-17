@@ -2,8 +2,7 @@
 Test all methods
 
  - Session Support
- - Add support to upload Files
- - Add Support for Proxys
+ - Add Support for Proxys - Needs Test
  - Add Support for HTTPS
  - Add Support for Cookies per User Session or Shared
  

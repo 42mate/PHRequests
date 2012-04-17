@@ -38,6 +38,7 @@ class Request {
    *   timeout: Time in seconds to wait for the request, Default 30
    *   allow_redirects: True or false Default True
    *   max_redirects: Numeric, default 3
+   *   proxy: Array (url, auth). Default None
    * @throws RequestException 
    */
   public function __construct($method, $url, $options = array()) {
@@ -56,7 +57,7 @@ class Request {
 
     $this->data = '';
     if (isset($options['data']) && is_array($options['data'])) {
-      $this->data = http_build_query($options['data']);
+      $this->data = $options['data'];
     }
     
     $this->timeout = 30;
@@ -77,7 +78,12 @@ class Request {
     $this->headers = '';
     if (isset($options['headers']) && is_array($options['headers'])) {
       $this->headers = $options['headers'];
-    } 
+    }
+    
+    $this->proxy = FALSE;
+    if (isset($options['proxy']) && is_array($options['proxy'])) {
+      $this->proxy = $options['proxy'];
+    }
   }
 
   /**
@@ -113,6 +119,7 @@ class Request {
     $options = self::$default_options;
     $this->setOptionUrl($options)
         ->setOptionMethod($options)  
+        ->setOptionProxy($options)
         ->setOptionTimeOut($options)
         ->setOptionAllowRedirect($options);
     return $options;
@@ -138,6 +145,16 @@ class Request {
       default:
         $options[CURLOPT_CUSTOMREQUEST] = $this->method;
         $this->setOptionData($options);
+    }
+    return $this;
+  }
+  
+  protected function setOptionProxy(&$options) {
+    if ($this->proxy !== FALSE) {
+      $options[CURLOPT_PROXY] = $this->proxy['url'];
+      if (isset($this->proxy['auth'])) {
+        $options[CURLOPT_PROXYAUTH] = $this->proxy['auth'];
+      }
     }
     return $this;
   }
