@@ -44,6 +44,8 @@ of important data of the request.
 
 And more.
 
+To see more samples, check your tests (until I write more documentation).
+
 ## Supported methods.
 
  - GET
@@ -53,3 +55,15 @@ And more.
  - HEAD
  - OPTIONS
 
+## Todo
+
+ - HTTPs support
+ - Session Supports
+ - Cookies Supports
+ - Auth Mecanism
+
+## Support
+
+If you want a special feature or if you detect some bug, please, let me know.
+
+If you wanna contribute to the project, also, please let me know :).
