@@ -32,7 +32,7 @@ $opt = array (
   'param2' => 'Some other value',
 );
 
-$response = \PHRequests\PHRequests::get('http://www.httpbin.org/post', $opt);
+$response = \PHRequests\PHRequests::post('http://www.httpbin.org/post', $opt);
 ```
 
 and that's all folks!
