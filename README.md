@@ -66,6 +66,34 @@ And more.
 
 To see more samples, check the tests (until I write more documentation).
 
+## Proxy Support
+
+If your are behind a proxy you need to define the Url of the proxy in order to
+make the Request. Here is an example.
+
+``` php
+$options = array(
+ 'proxy' => array(
+    'url' => 'http://prx_name_or_ip:3128'         
+  ),
+);
+$response = \PHRequests\PHRequests::options(BASE_GET_URL, $options);
+``` 
+
+If your proxy uses auth, try with this
+
+``` php
+$options = array(
+ 'proxy' => array(
+    'url' => 'http://prx_name_or_ip:3128',
+    'auth' => 'username:password',
+    'auth_method' => Auth::BASIC //Optional, BASIC By default, NTLM is the second option. 
+  ),
+);
+
+$response = \PHRequests\PHRequests::options(BASE_GET_URL, $options);
+``` 
+
 ## HTTPS support
 
 In order to make HTTPs Requests against a valid HTTPs Server. You need

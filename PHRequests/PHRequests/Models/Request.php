@@ -20,7 +20,7 @@ class Request {
   static protected $default_options =  array(
       CURLOPT_HEADER => TRUE,
       CURLOPT_FRESH_CONNECT => TRUE,
-      CURLOPT_RETURNTRANSFER => TRUE, //Returns the content of curl exec instead of put directly as output
+      CURLOPT_RETURNTRANSFER => TRUE,   //Returns the content of curl exec instead of put directly as output
       CURLINFO_HEADER_OUT => TRUE,
       //CURLOPT_COOKIEJAR => '/tmp/gus',
       //CURLOPT_COOKIEFILE => '/tmp/gus',
@@ -38,7 +38,7 @@ class Request {
    *   timeout: Time in seconds to wait for the request, Default 30
    *   allow_redirects: True or false Default True
    *   max_redirects: Numeric, default 3
-   *   proxy: Array (url, auth). Default None
+   *   proxy: Array (url, auth, auth_method). Default None
    *   ssl_ca: String, The path to the Cert File, if the connection is HTTPs and the CA isn't set 
    *           any CA will be a valid cert. 
    *           In order to verify you must have a valid certificate, if you don't have a valid
@@ -168,7 +168,11 @@ class Request {
     if ($this->proxy !== FALSE) {
       $options[CURLOPT_PROXY] = $this->proxy['url'];
       if (isset($this->proxy['auth'])) {
-        $options[CURLOPT_PROXYAUTH] = $this->proxy['auth'];
+        curl_setopt( $ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
+        if (isset($this->proxu['auth_method']) === Auth::NTLM) {
+          curl_setopt( $ch, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
+        }
+        $options[CURLOPT_PROXYUSERPWD] = $this->proxy['auth'];
       }
     }
     return $this;
