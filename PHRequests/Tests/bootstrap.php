@@ -19,3 +19,5 @@ function psr0_autoload($className)
 
 spl_autoload_register('psr0_autoload');
 define('BASE_GET_URL', 'http://httpbin.org/');
+define('BASE_GET_URL_HTTPS', 'https://www.google.com.ar');
+define('CA_PATH', dirname(__FILE__) . '/Resources/google2.pem');

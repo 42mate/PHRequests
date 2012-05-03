@@ -52,6 +52,7 @@ $opt = array (
 
 $response = \PHRequests\PHRequests::post('http://www.httpbin.org/post', $opt);
 ```
+
 and that's all folks!
 
 The Response object will hold the result of the request. Also it has a lot
@@ -65,6 +66,30 @@ And more.
 
 To see more samples, check the tests (until I write more documentation).
 
+## HTTPS support
+
+In order to make HTTPs Requests against a valid HTTPs Server. You need
+download and save the Certificate of the site, save it into a reachable
+folder. After, you need to define the option ssl_ca with the full path to the 
+certificate in order to setup PHRequest. Here is an example.
+
+``` php
+$options = array (
+  'ssl_ca' => '../certs/mycert.pem';
+)
+$response = PHRequests::get('https://www.mysite.com', $options);
+``` 
+
+If you don't set the PEM certificate, the HTTPs request will be made anyway but 
+without a proper certificate validation, the connection will be still an SSL 
+connection but can be a security issue accept any certificate without validation.
+
+IMPORTANT : The certificate must be a PEM certificate.
+
+Here you have more detailed explanation about HTTPs with curl.
+
+  http://unitstep.net/blog/2009/05/05/using-curl-in-php-to-access-https-ssltls-protected-sites/
+
 ## Supported methods.
 
  - GET
@@ -76,7 +101,6 @@ To see more samples, check the tests (until I write more documentation).
 
 ## Todo
 
- - HTTPs support
  - Session Supports
  - Cookies Supports
  - Auth Mecanism

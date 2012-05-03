@@ -39,6 +39,10 @@ class Request {
    *   allow_redirects: True or false Default True
    *   max_redirects: Numeric, default 3
    *   proxy: Array (url, auth). Default None
+   *   ssl_ca: String, The path to the Cert File, if the connection is HTTPs and the CA isn't set 
+   *           any CA will be a valid cert. 
+   *           In order to verify you must have a valid certificate, if you don't have a valid
+   *           certificate you must skip the verification.
    * @throws PHRequestsException 
    */
   public function __construct($method, $url, $options = array()) {
@@ -84,6 +88,16 @@ class Request {
     if (isset($options['proxy']) && is_array($options['proxy'])) {
       $this->proxy = $options['proxy'];
     }
+    
+   $this->ssl_ca = '';
+   if (isset($options['ssl_ca'])) {     
+     if (file_exists($options['ssl_ca'])) {
+       $this->ssl_ca = $options['ssl_ca'];
+     } else {
+       $this->createException('10001', 'The CA Certificate can\'t be found');
+     }
+   }
+   
   }
 
   /**
@@ -121,7 +135,8 @@ class Request {
         ->setOptionMethod($options)  
         ->setOptionProxy($options)
         ->setOptionTimeOut($options)
-        ->setOptionAllowRedirect($options);
+        ->setOptionAllowRedirect($options)
+        ->setOptionSsl($options);
     return $options;
   }
 
@@ -177,6 +192,18 @@ class Request {
   protected function setOptionAllowRedirect(&$options) {
     $options[CURLOPT_FOLLOWLOCATION] = $this->allow_redirects;
     $options[CURLOPT_MAXREDIRS] = $this->max_redirects;
+    return $this;
+  }
+  
+  protected function setOptionSsl(&$options) {
+    $options[CURLOPT_SSL_VERIFYPEER] = false;
+    if ($this->ssl_ca !== '') {
+      $options[CURLOPT_SSL_VERIFYPEER] = true;
+      $options[CURLOPT_SSL_VERIFYHOST] =  2;
+      $options[CURLOPT_CAINFO] = $this->ssl_ca;
+      
+    }
+    return $this;
   }
   
   /**

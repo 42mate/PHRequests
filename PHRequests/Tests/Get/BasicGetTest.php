@@ -11,6 +11,17 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
     $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'noneError');   
     $this->assertEquals($response->http_code, 404);
   }
+  
+  public function testBasicHttpsGet() {
+    $options = array (
+      'ssl_ca' => CA_PATH  
+    );
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL_HTTPS, $options);    
+    $this->assertEquals($response->http_code, 200);
+    
+    $response = \PHRequests\PHRequests::get(BASE_GET_URL_HTTPS . '/about/gf', $options);   
+    $this->assertEquals($response->http_code, 404);
+  }
 
   public function testParameterGet() {
     $options = array(
