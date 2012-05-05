@@ -43,6 +43,7 @@ class Request {
    *           any CA will be a valid cert. 
    *           In order to verify you must have a valid certificate, if you don't have a valid
    *           certificate you must skip the verification.
+   *   encoding: String, The encoding type to pass to curl, Default ''
    * @throws PHRequestsException 
    */
   public function __construct($method, $url, $options = array()) {
@@ -89,15 +90,19 @@ class Request {
       $this->proxy = $options['proxy'];
     }
     
-   $this->ssl_ca = '';
-   if (isset($options['ssl_ca'])) {     
-     if (file_exists($options['ssl_ca'])) {
-       $this->ssl_ca = $options['ssl_ca'];
-     } else {
-       $this->createException('10001', 'The CA Certificate can\'t be found');
-     }
-   }
+    $this->ssl_ca = '';
+    if (isset($options['ssl_ca'])) {     
+      if (file_exists($options['ssl_ca'])) {
+        $this->ssl_ca = $options['ssl_ca'];
+      } else {
+        $this->createException('10001', 'The CA Certificate can\'t be found');
+      }
+    }
    
+    $this->encoding = '';
+    if (isset($options['encoding'])) {
+      $this->encoding = $options['encoding'];
+    }
   }
 
   /**
@@ -136,7 +141,8 @@ class Request {
         ->setOptionProxy($options)
         ->setOptionTimeOut($options)
         ->setOptionAllowRedirect($options)
-        ->setOptionSsl($options);
+        ->setOptionSsl($options)
+        ->setOptionEncoding($options);
     return $options;
   }
 
@@ -210,6 +216,11 @@ class Request {
     return $this;
   }
   
+  protected function setOptionEncoding(&$options) {
+    $options[CURLOPT_ENCODING] = $this->encoding;
+    return $this;
+  }
+
   /**
    * Creates the Exception depending on the error Number
    * 
