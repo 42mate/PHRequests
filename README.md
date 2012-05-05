@@ -66,7 +66,7 @@ And more.
 
 PHRequests uses the PSR-0 standard for class autoloading so you will need a
 compatible defined autoload function to start using by itself (versus inside a
-compatible framwork like Symfony). You can find one such a function in the
+compatible framework like Symfony). You can find one such a function in the
 Tests\bootstrap.php file.
 
 To see more samples, check the tests (until I write more documentation).
