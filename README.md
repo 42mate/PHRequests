@@ -64,6 +64,11 @@ of important data of the request.
 
 And more.
 
+PHRequests uses the PSR-0 standard for class autoloading so you will need a
+compatible defined autoload function to start using by itself (versus inside a
+compatible framework like Symfony). You can find one such a function in the
+Tests\bootstrap.php file.
+
 To see more samples, check the tests (until I write more documentation).
 
 ## Proxy Support
