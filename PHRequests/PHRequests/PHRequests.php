@@ -44,5 +44,31 @@ class PHRequests {
   static public function options($url, $options = array()) {
     return self::request(Methods::OPTIONS, $url, $options);
   }
+  
+  /**
+   * Gets a remote file and save it locally.
+   * 
+   * @param String $url : Url to get the file
+   * @param String $localPath : Full path to store the file
+   * @param Array $options : PHRequests Options
+   * @return boolean true on success.
+   * @throws PHRequestException If the File can't be saved.
+   */
+  static public function saveRemoteFile($url, $localPath, $options) {
+    $response = self::request(Methods::GET, $url, $options);
+    $fileContent = $response->content;
+   
+    //creates or update the file
+    $fp = fopen($localPath,'w');
+    if ($fp !== false) {
+      $writeStatus = fwrite($fp, $fileContent);
+      if ($writeStatus !== false) {
+        fclose($fp);
+        return true;
+      }      
+    }
+    
+    throw new PHRequestException('Something happens saving the file');
+  }
 
 }

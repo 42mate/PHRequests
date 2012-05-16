@@ -123,6 +123,21 @@ Here you have more detailed explanation about HTTPs with curl.
 
   http://unitstep.net/blog/2009/05/05/using-curl-in-php-to-access-https-ssltls-protected-sites/
 
+## Save Remote Files Locally
+
+To get a remote file and save it locally you can do the following.
+
+``` php
+\PHRequests\PHRequests::saveRemoteFile($urlSource, $pathDest, $options);
+``` 
+
+The file located in $urlSource, will be saved in $pathDest, using $options.
+
+The request will be made with GET method.
+
+IMPORTANT : The BAD usage of this feature can create security problems, please
+keep that in mind and be careful.
+
 ## Supported methods.
 
  - GET

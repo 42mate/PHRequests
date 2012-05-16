@@ -55,7 +55,7 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
    * @expectedException PHRequests\Exceptions\PHRequestsResolveHostException 
    */
   public function testUnresolvedHost() {    
-    \PHRequests\PHRequests::get('foo');       
+    \PHRequests\PHRequests::get('foo@@');       
   }
   
   public function testRedirectGet() {
@@ -85,6 +85,17 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
     //Default behavior
     $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/2');
     $this->assertEquals($response->http_code, 200);
+  }
+  
+  public function testSaveRemoteFile() {
+    $filePath = dirname(__FILE__) . '/../Resources/savepic.jpg';
+    \PHRequests\PHRequests::saveRemoteFile(
+            'https://graph.facebook.com/casivaagustin/picture?type=large', 
+            $filePath, 
+            array()
+    );
+    $this->assertEquals(file_exists($filePath), true);
+    unlink($filePath);
   }
 
 }
