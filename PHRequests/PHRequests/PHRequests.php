@@ -17,8 +17,10 @@ class PHRequests {
    * @return PHRequests\Model\Response
    */
   static public function request($method, $url, $options = array()) {
-    $r = new Request($method, $url, $options);
-    return $r->send();
+    $r = new Request($options);
+    $data = isset($options['data'])?$options['data']:null;
+    $params = isset($options['params'])?$options['params']:null;
+    return $r->execute($method, $url, $data, $params);
   }
   
   static public function get($url, $options = array()) {
@@ -55,20 +57,8 @@ class PHRequests {
    * @throws PHRequestException If the File can't be saved.
    */
   static public function saveRemoteFile($url, $localPath, $options) {
-    $response = self::request(Methods::GET, $url, $options);
-    $fileContent = $response->content;
-   
-    //creates or update the file
-    $fp = fopen($localPath,'w');
-    if ($fp !== false) {
-      $writeStatus = fwrite($fp, $fileContent);
-      if ($writeStatus !== false) {
-        fclose($fp);
-        return true;
-      }      
-    }
-    
-    throw new PHRequestException('Something happens saving the file');
+    $r = new Request($options);
+    return $r->save($localPath, $url);
   }
 
 }

@@ -60,25 +60,16 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
   
   public function testRedirectGet() {
     $options = array (
-        'allow_redirects' => FALSE,
+        'max_redirects' => 0, //No Redirects
     );
     
     $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
     $this->assertEquals($response->http_code, 302);    
-    $options = array (
-        'allow_redirects' => TRUE,
-        'max_redirects' => 2
-    );
-    try {
-      $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
-    } catch (\PHRequests\Exceptions\PHRequestsException $e) {
-      $this->assertInstanceOf('\PHRequests\Exceptions\PHRequestsException', $e);
-    }
     
     $options = array (
-        'allow_redirects' => TRUE,
         'max_redirects' => 5
-    );    
+    );
+    
     $response = \PHRequests\PHRequests::get(BASE_GET_URL . 'redirect/4', $options);
     $this->assertEquals($response->http_code, 200);
        
