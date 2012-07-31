@@ -53,9 +53,11 @@ class BasicGetTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @expectedException PHRequests\Exceptions\PHRequestsResolveHostException 
+   * 
+   * This test might fail if your network have a redirecton for not found domains.
    */
-  public function testUnresolvedHost() {    
-    \PHRequests\PHRequests::get('foo@@');       
+  public function testUnresolvedHost() {
+    \PHRequests\PHRequests::get('http://bar_foo');       
   }
   
   public function testRedirectGet() {

@@ -9,8 +9,8 @@ class UploadPostTest extends PHPUnit_Framework_TestCase {
     $options = array(
         'data' => array(
             'po1' => 'faa',
-            'file1' => "@$path/file/fake1.txt",
-            'file2' => "@$path/file/fake2.txt",
+            'file1' => "@$path/../Resources/fake.php",
+            'file2' => "@$path/../Resources/fake.php",
         ),
     );    
     $response = \PHRequests\PHRequests::post(BASE_GET_URL . 'post', $options);
@@ -19,7 +19,7 @@ class UploadPostTest extends PHPUnit_Framework_TestCase {
     $this->assertTrue(isset($jres->files));
     $this->assertTrue(isset($jres->files->file1));
     $this->assertTrue(isset($jres->files->file2)); 
-    $this->assertEquals($jres->files->file1, file_get_contents("$path/file/fake1.txt"));
+    $this->assertEquals($jres->files->file1, file_get_contents("$path/../Resources/fake.php"));
   }
   
 }

@@ -25,6 +25,7 @@ class Request extends Requester {
     $options['response_type'] = self::RESPONSE_ARRAY;
     parent::__construct($options);
   }
+  
   /**
    * Executes the Request
    *
@@ -36,16 +37,18 @@ class Request extends Requester {
    * @return String|Boolean : The content or false on failure
    */
   public function execute($method, $url, $data = null, $params = null) {
-   if (!in_array($method, Methods::getMethods())) {
-    throw new PHRequestsException('Method Not Allowed');
-   }
-   try {
-     return new Response(parent::execute($method, $url, $data, $params));
-    } catch(Exception $e) {
-      $this->createException($e->getCode(), $e->getMessage());
+   
+    if (!in_array($method, Methods::getMethods())) {
+      throw new PHRequestsException('Method Not Allowed');
+    }
+   
+    try {
+      $responseInfo = parent::execute($method, $url, $data, $params);
+      return new Response($responseInfo);
+    } catch(\Exception $e) {
+      throw $this->createException($e->getCode(), $e->getMessage());
     }
   }
-  
   
   /**
    * Creates the Exception depending on the error Number
@@ -55,14 +58,15 @@ class Request extends Requester {
    * @return \PHRequests\Exceptions\PHRequestsException or child
    */
   protected function createException($errorNro, $message) {  
+    
     if ($errorNro === 6) {
-      return new PHRequestsResolveHostException($message);
+      return new PHRequestsResolveHostException($message, $errorNro);
     }
     
     if ($errorNro === 28) {
-      return new PHRequestsTimeoutException($message);
+      return new PHRequestsTimeoutException($message, $errorNro);
     }
     
-    return new PHRequestsException($message);
+    return new PHRequestsException($message, $errorNro);
   }
 }

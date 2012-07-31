@@ -14,8 +14,8 @@ class BasicPostTest extends PHPUnit_Framework_TestCase {
     $response = \PHRequests\PHRequests::post(BASE_GET_URL . 'post', $options);
     $this->assertEquals($response->http_code, 200);
     
-    $response = \PHRequests\PHRequests::post(BASE_GET_URL . 'noneError');   
-    $this->assertEquals($response->http_code, 404);
+    $response = \PHRequests\PHRequests::post(BASE_GET_URL . 'noneError');  
+    $this->assertEquals($response->http_code, 400);
   }
 
   public function testParameterPost() {
