@@ -1,0 +1,21 @@
+{
+    "name": "casivaagustin/phrequests",
+    "description": "Curl Wrapper to make Http request easily",
+    "keywords": ["REST", "Http", "Curl"],
+    "homepage": "https://github.com/casivaagustin/PHRequests",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Casiva Agustin",
+            "email": "casivaagustin@gmail.com",
+            "homepage": "http://casivaagustin.com.ar"
+        }
+    ],
+    "require": {
+            "php": ">=5.3.1",
+    },
+    "autoload": {
+            "psr-0": { "PHRequest": "src/" },
+    },
+}

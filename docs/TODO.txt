@@ -1,0 +1,5 @@
+Test all methods
+
+ - Session Support
+ - Add Support for Proxys - Needs Test
+ - Add Support for Cookies per User Session or Shared
