@@ -3,7 +3,7 @@
 namespace PHRequests\Models;
 
 /**
- * Response holds the data of the Reponse
+ * Response holds the data of the Response
  *
  * @author agustin
  */
@@ -15,7 +15,16 @@ class Response {
    */
   public function __construct($response) {
     foreach($response as $key => $value) {
-      $this->$key = $value;
+      $low_key = strtolower($key);
+      if (is_array($value)) {
+          $low_values = array();
+          foreach ($value as $key => $val) {
+              $low_values[strtolower($key)] = strtolower($val);
+          }
+      } else {
+          $low_values = $value;
+      }
+      $this->$low_key = $low_values;
     }
   }
 
