@@ -28,6 +28,7 @@ class Requester {
       CURLOPT_RETURNTRANSFER => TRUE,
       CURLINFO_HEADER_OUT => TRUE,
       CURLOPT_SSL_VERIFYPEER => FALSE,
+      CURLOPT_SSL_VERIFYHOST => FALSE,
       CURLOPT_FOLLOWLOCATION => TRUE,
       CURLOPT_MAXREDIRS => 3,
       CURLOPT_FAILONERROR => FALSE,
@@ -54,15 +55,15 @@ class Requester {
   /**
    * Executes the Request
    *
-   * @param String $method  : The HTTP method to use, by default use the internal Method.
-   * @param String $url     : The url to hit
-   * @param Array  $data    : The Data to append in the body
-   * @param Array  $params  : The Parameters to append as a Query String
+   * @param String $method : The HTTP method to use, by default use the internal Method.
+   * @param String $url : The url to hit
+   * @param Array $data : The Data to append in the body
+   * @param Array $params : The Parameters to append as a Query String
+   *
+   * @throws \Exception
    *
    * @return String|Array|Boolean : The content or false on failure
-   * 
-   * @throws Exception
-   * 
+   *
    */
   public function execute($method, $url, $data = null, $params = null) {
     $this->setOptionUrl($url);
@@ -196,7 +197,7 @@ class Requester {
       if ($this->execute(self::HEAD, $url) !== FALSE) {
         return TRUE;
       }
-    } catch(Exception $e) {
+    } catch(\Exception $e) {
       return FALSE;
     }
     return FALSE;
@@ -219,7 +220,7 @@ class Requester {
   /**
    * Sets the Proxy Parameters
    *
-   * @param Array $proxy : Array with Configurations
+   * @param Array|bool $proxy : Array with Configurations
    *      array('url',       //Proxy Url
    *            'auth',      //Proxy Auth credentials User:Pass, Optional
    *            'auth_method'//Proxy Auth Method, BASIC / NTLM, Basic By Def
@@ -252,7 +253,7 @@ class Requester {
   }
 
   /**
-   * Sets how many redirets will support
+   * Sets how many redirects will support
    *
    * @param Integer $max_redirects, By default 3
    *
@@ -278,11 +279,11 @@ class Requester {
    */
   public function setOptionSsl($sslCa) {
     $this->options[CURLOPT_SSL_VERIFYPEER] = FALSE;
+    $this->options[CURLOPT_SSL_VERIFYHOST] = FALSE;
     if ($sslCa !== '') {
       $this->options[CURLOPT_SSL_VERIFYPEER] = TRUE;
       $this->options[CURLOPT_SSL_VERIFYHOST] =  2;
       $this->options[CURLOPT_CAINFO] = $sslCa;
-
     }
     return $this;
   }
@@ -291,7 +292,7 @@ class Requester {
    * Sets auth for the Requests
    *
    * @param String $usernameAndPassword : username:password
-   * @param String $method              : Any Curl Option valid for CURLOPT_HTTPAUTH, by def BASIC.
+   * @param int|String $method : Any Curl Option valid for CURLOPT_HTTPAUTH, by def BASIC.
    *
    * @todo Test this method
    */
@@ -303,7 +304,8 @@ class Requester {
   /**
    * Sets the Encoding
    *
-   * @param String $encodig : "identity", "deflate", and "gzip"
+   * @param string $encoding
+   * @internal param String $encodig : "identity", "deflate", and "gzip"
    *
    * @return Requester
    *
@@ -387,9 +389,10 @@ class Requester {
    * This options allows set the response type. By default will return a string
    * with the content. But if you need more info, you can set the response to an
    * array and get a complete information of the request.
-   * 
+   *
    * @param String $type RESPONSE_RAW | RESPONSE_ARRAY
    *
+   * @return $this
    */
   public function setOptionResponseType($type = self::RESPONSE_RAW) {
     $this->responseType = $type;
@@ -400,12 +403,14 @@ class Requester {
     }
     return $this;
   }
-  
+
   /**
    * Set this option to throw an Exception if the response status code is
-   * grater or equal than 400. By dafault is false.
-   * 
+   * grater or equal than 400. By default is false.
+   *
    * @param boolean $fail
+   *
+   * @return $this
    */
   public function setOptionFailOnError($fail = FALSE) {
     $this->options[CURLOPT_FAILONERROR] = $fail;
@@ -415,7 +420,7 @@ class Requester {
   /**
    * Resets Requester Options
    *
-   * @param Array  $options Posible entries
+   * @param Array $options Possible entries
    *   timeout        : Time in seconds to wait for the request, Default 30
    *   max_redirects  : Numeric, default 3, 0 for don't allow redirects
    *   proxy          : Array (url, auth, auth_method). Default None
@@ -423,6 +428,8 @@ class Requester {
    *   ssl_ca         : Sets the Path to the CA for SSL
    *   response_type  : RESPONSE_RAW or RESPONSE_ARRAY
    *                    Sets the response type, the raw response or an array with details.
+   *
+   * @return $this
    *
    * @todo Test this method
    */
@@ -438,7 +445,7 @@ class Requester {
     }
 
     if (isset($options['proxy']) && is_array($options['proxy'])) {
-      $proxy = $options['proxy'];
+      $this->setOptionProxy($options['proxy']);
     }
 
     if(isset($options['ssl_ca'])) {
@@ -491,9 +498,11 @@ class Requester {
   /**
    * Creates a Response Array
    *
-   * @param String $content  : Raw Response (Headers and Body)
-   * 
+   * @param String $content : Raw Response (Headers and Body)
+   *
    * @param Array $info : Curl Meta Info
+   *
+   * @return array
    */
   static function createArrayResponse($content, $info = array()) {
     $response = array();
