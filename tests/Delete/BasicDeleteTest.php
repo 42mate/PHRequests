@@ -40,7 +40,7 @@ class BasicDeleteTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(isset($jres->data), TRUE);
     $this->assertEquals($jres->args->var1, 1);
     $this->assertEquals($jres->args->var2, 'Hello');
-    $this->assertEquals($jres->data, 'po1=11&po2=Hello+Post');
+    $this->assertEquals($jres->data, '');
     $this->assertEquals((string) $response, $response->content);
   }
   

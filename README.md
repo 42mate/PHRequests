@@ -153,6 +153,24 @@ keep that in mind and be careful.
  - Cookies Supports
  - Auth Mecanism
 
+## How to run the tests
+
+First install phpunit, i'm using PHPUnit 4.7.3 and I have installed using the phar file.
+
+Go to the test folder, and just run
+
+```
+phpunit .
+```
+
+That will run all the tests.
+
+I'm having troubles to write a good public tests to test the proxies functionality, need an open
+and public proxy to validate that works, that's why that test is disabled.
+
+If you are going to work in the proxy features, please, set a proxy, enable the test
+and test it before commit.
+
 ## Support
 
 If you want a special feature or if you find a bug, please, let me know.

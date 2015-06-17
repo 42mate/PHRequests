@@ -33,18 +33,19 @@ class Request extends Requester {
    * @param String $url : The url to hit
    * @param Array $data : The Data to append in the body
    * @param Array $params : The Parameters to append as a Query String
+   * @param Array $request_headers : Array with strings of headers directives.
    *
    * @throws \PHRequests\Exceptions\PHRequestsException
    * @return String|Boolean : The content or false on failure
    */
-  public function execute($method, $url, $data = null, $params = null) {
+  public function execute($method, $url, $data = null, $params = null, $request_headers = array()) {
    
     if (!in_array($method, Methods::getMethods())) {
       throw new PHRequestsException('Method Not Allowed');
     }
    
     try {
-      $responseInfo = parent::execute($method, $url, $data, $params);
+      $responseInfo = parent::execute($method, $url, $data, $params, $request_headers);
       return new Response($responseInfo);
     } catch(\Exception $e) {
       throw $this->createException($e->getCode(), $e->getMessage());

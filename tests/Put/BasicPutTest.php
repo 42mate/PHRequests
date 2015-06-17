@@ -2,7 +2,7 @@
 
 include_once 'bootstrap.php';
 
-class BasicPostTest extends PHPUnit_Framework_TestCase {
+class BasicPutTest extends PHPUnit_Framework_TestCase {
 
   public function testBasicPut() {
     $options = array(
