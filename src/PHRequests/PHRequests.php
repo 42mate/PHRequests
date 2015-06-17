@@ -20,6 +20,13 @@ class PHRequests {
     $r = new Request($options);
     $data = isset($options['data'])?$options['data']:null;
     $params = isset($options['params'])?$options['params']:null;
+
+    if (!empty($options['headers'])) {
+        foreach($options['headers'] as $header) {
+            $r->setHttpRequestHeader($header);
+        }
+    }
+
     return $r->execute($method, $url, $data, $params);
   }
   
