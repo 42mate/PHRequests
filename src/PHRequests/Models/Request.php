@@ -25,15 +25,16 @@ class Request extends Requester {
     $options['response_type'] = self::RESPONSE_ARRAY;
     parent::__construct($options);
   }
-  
+
   /**
    * Executes the Request
    *
-   * @param String $method  : The HTTP method to use, by default use the internal Method.
-   * @param String $url     : The url to hit
-   * @param Array  $data    : The Data to append in the body
-   * @param Array  $params  : The Parameters to append as a Query String
+   * @param String $method : The HTTP method to use, by default use the internal Method.
+   * @param String $url : The url to hit
+   * @param Array $data : The Data to append in the body
+   * @param Array $params : The Parameters to append as a Query String
    *
+   * @throws \PHRequests\Exceptions\PHRequestsException
    * @return String|Boolean : The content or false on failure
    */
   public function execute($method, $url, $data = null, $params = null) {
