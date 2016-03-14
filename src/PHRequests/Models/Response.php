@@ -32,7 +32,10 @@ class Response {
    * Returns the Content of the PHRequests
    * @return String
    */
-  public function __toString() {
+  public function __toString() { 
+    if (empty($this->content)) {
+      return '';
+    }
     return $this->content;
   }
 }
